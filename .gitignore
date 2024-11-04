@@ -1,0 +1,3 @@
+.mypy_cache
+db*
+__pycache__
