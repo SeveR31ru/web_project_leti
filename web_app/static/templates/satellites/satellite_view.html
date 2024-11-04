@@ -49,9 +49,40 @@
         </tbody>
     </table>
 </div>
+
+<div class="container text-center">
+    <h2>Последнее TLE</h2>
+    {% if satellite.tles.all %}
+    {% with satellite.tles.all.first as tle %}
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th score="col">TLE_0</th>
+                <th score="col">TLE_1</th>
+                <th score="col">TLE_2</th>
+                <th score="col">Дата добавления</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ tle.tle_0 }}</td>
+                <td>{{ tle.tle_1 }}</td>
+                <td>{{ tle.tle_2 }}</td>
+                <td>{{ tle.update_date }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endwith %}
+    {% else %}
+    <p>Для спутника нет TLE</p>
+    {% endif %}
+</div>
+
+<div class="container text-center">
+    <h2>Передатчики</h2>
+</div>
 <div class="container">
     <div class="row">
-
         {% for transmitter in satellite.transmitters.all %}
         <div class="col-sm-2">
             <div class="card"

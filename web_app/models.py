@@ -76,11 +76,13 @@ class Transmitter(models.Model):
 
 class Tle(models.Model):
     id = models.AutoField(primary_key=True)
-    satellite = models.ForeignKey(Satellite, on_delete=models.CASCADE)
+    satellite = models.ForeignKey(
+        Satellite, on_delete=models.CASCADE, related_name="tles"
+    )
     tle_0 = models.CharField(max_length=200)
     tle_1 = models.CharField(max_length=200)
     tle_2 = models.CharField(max_length=200)
-    update_date = models.DateField(auto_now=True)
+    update_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """
