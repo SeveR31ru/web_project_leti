@@ -21,4 +21,5 @@ from web_app import views
 
 BASE_URLS = [
     path("", views.index, name="index"),
+    path("satellites", views.SatelliteListView.as_view(), name="satellite_list"),
 ]

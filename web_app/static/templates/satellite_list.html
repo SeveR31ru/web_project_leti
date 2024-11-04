@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <title>Список спутников</title>
+</head>
+
+<div class="container text-center">
+    <h1>Список спутников</h1>
+</div>
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th score="col">ID</th>
+                <th score="col">Идентификатор</th>
+                <th score="col">Название</th>
+                <th score="col">Назначение</th>
+                <th score="col">Статус</th>
+                <th score="col">Страна</th>
+                <th score="col">Дата запуска</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for satellite in satellites %}
+            <tr>
+                <th score="row">{{ satellite.id }}</th>
+                <td>{{ satellite.identifier }}</td>
+                <td>{{ satellite.name }}</td>
+                <td>{{ satellite.purpose }}</td>
+                <td>{{ satellite.status }}</td>
+                <td>{{ satellite.country }}</td>
+                <td>{{ satellite.launch_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
