@@ -6,6 +6,12 @@ TRANSMITTER_TYPES = [
     ("Приёмопередатчик", "Приёмопередатчик"),
 ]
 
+SATELLITE_STATUS = [
+    (" Активен", "Активен"),
+    ("Неактивен", "Неактивен"),
+    ("Сгорел", "Сгорел"),
+]
+
 
 # Create your models here.
 class Satellite(models.Model):
@@ -13,11 +19,11 @@ class Satellite(models.Model):
     identifier = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     purpose = models.CharField(max_length=200)
-    image_url = models.ImageField(upload_to="images/")
-    status = models.CharField(max_length=200)
+    image_url = models.ImageField(upload_to="images/", null=True, blank=True)
+    status = models.CharField(max_length=200, choices=SATELLITE_STATUS)
     is_frequency_violator = models.BooleanField()
-    country = models.CharField(max_length=200)
-    launch_date = models.DateField()
+    country = models.CharField(max_length=200, null=True, blank=True)
+    launch_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         """
@@ -35,13 +41,13 @@ class Transmitter(models.Model):
     description = models.CharField(max_length=200)
     type = models.CharField(max_length=200, choices=TRANSMITTER_TYPES)
     status = models.CharField(max_length=200)
-    upper_frequency_up = models.FloatField()
-    lower_frequency_up = models.FloatField()
-    upper_frequency_down = models.FloatField()
-    lower_frequency_down = models.FloatField()
     modulation = models.CharField(max_length=200)
-    is_inverted = models.BooleanField()
+    upper_frequency_up = models.FloatField(null=True, blank=True)
+    lower_frequency_up = models.FloatField(null=True, blank=True)
+    upper_frequency_down = models.FloatField(null=True, blank=True)
+    lower_frequency_down = models.FloatField(null=True, blank=True)
     baud_rate = models.FloatField()
+    is_inverted = models.BooleanField(default=False)
 
     def __str__(self):
         """
