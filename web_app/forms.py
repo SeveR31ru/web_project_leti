@@ -5,6 +5,7 @@ from web_app.models import (
     TRANSMITTER_STATUS,
     TRANSMITTER_TYPES,
     Satellite,
+    Tle,
     Transmitter,
 )
 
@@ -129,3 +130,27 @@ class TransmitterForm(forms.ModelForm):
             "baud_rate",
             "is_inverted",
         ]
+
+
+class TleForm(forms.ModelForm):
+    satellite = forms.ModelChoiceField(
+        queryset=Satellite.objects.all(),
+        label="Спутник",
+        help_text="Спутник, к которому относится TLE",
+    )
+    tle_0 = forms.CharField(
+        label="TLE_0",
+        help_text="Первая строка TLE",
+    )
+    tle_1 = forms.CharField(
+        label="TLE_1",
+        help_text="Вторая строка TLE",
+    )
+    tle_2 = forms.CharField(
+        label="TLE_2",
+        help_text="Третья строка TLE",
+    )
+
+    class Meta:
+        model = Tle
+        fields = ["satellite", "tle_0", "tle_1", "tle_2"]

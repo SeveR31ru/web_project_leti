@@ -30,4 +30,5 @@ BASE_URLS = [
     ),
     path("add_satellite", views.add_satellite, name="add_satellite"),
     path("add_transmitter", views.add_transmitter, name="add_transmitter"),
+    path("add_tle", views.add_tle, name="add_tle"),
 ]
