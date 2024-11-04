@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
-from web_app.forms import SatelliteForm
+from web_app.forms import SatelliteForm, TransmitterForm
 from web_app.models import Satellite
 
 # Create your views here.
@@ -59,3 +59,25 @@ def add_satellite(request):
             return render(request, "satellite_added.html")
         else:
             return render(request, "add_satellite.html", {"form": form})
+
+
+def add_transmitter(request):
+    """
+    Returns a rendered page with the form for adding a new transmitter.
+
+    Args:
+        request (Request): The HTTP request.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    if request.method == "GET":
+        form = TransmitterForm()
+        return render(request, "add_transmitter.html", {"form": form})
+    else:
+        form = TransmitterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "transmitter_added.html")
+        else:
+            return render(request, "add_transmitter.html", {"form": form})

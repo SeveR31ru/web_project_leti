@@ -25,4 +25,5 @@ BASE_URLS = [
     re_path(r"^satellites/(?P<pk>\d+)/$", views.satellite_view, name="satellite_view"),
     # add urls
     path("add_satellite", views.add_satellite, name="add_satellite"),
+    path("add_transmitter", views.add_transmitter, name="add_transmitter"),
 ]

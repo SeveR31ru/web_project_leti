@@ -1,6 +1,12 @@
 from django import forms
 
-from web_app.models import SATELLITE_STATUS, Satellite
+from web_app.models import (
+    SATELLITE_STATUS,
+    TRANSMITTER_STATUS,
+    TRANSMITTER_TYPES,
+    Satellite,
+    Transmitter,
+)
 
 
 class SatelliteForm(forms.ModelForm):
@@ -10,7 +16,7 @@ class SatelliteForm(forms.ModelForm):
     )
     name = forms.CharField(
         label="Название",
-        help_text="Название спутника",
+        help_text="Уникальное название спутника",
     )
     purpose = forms.CharField(
         label="Назначение",
@@ -53,4 +59,73 @@ class SatelliteForm(forms.ModelForm):
             "is_frequency_violator",
             "country",
             "launch_date",
+        ]
+
+
+class TransmitterForm(forms.ModelForm):
+    satellite = forms.ModelChoiceField(
+        queryset=Satellite.objects.all(),
+        label="Спутник",
+        help_text="Спутник, к которому относится передатчик",
+    )
+    description = forms.CharField(
+        label="Описание",
+        help_text="Описание передатчика",
+    )
+    type = forms.ChoiceField(
+        label="Тип", help_text="Тип передатчика", choices=TRANSMITTER_TYPES
+    )
+    status = forms.ChoiceField(
+        label="Статус",
+        help_text="Статус передатчика",
+        choices=TRANSMITTER_STATUS,
+    )
+    modulation = forms.CharField(
+        label="Модуляция",
+        help_text="Модуляция передатчика",
+    )
+    upper_frequency_up = forms.FloatField(
+        label="Верхняя частота",
+        help_text="Верхняя частота передатчика",
+        required=False,
+    )
+    lower_frequency_up = forms.FloatField(
+        label="Нижняя частота",
+        help_text="Нижняя частота передатчика",
+        required=False,
+    )
+    upper_frequency_down = forms.FloatField(
+        label="Верхняя частота",
+        help_text="Верхняя частота передатчика",
+        required=False,
+    )
+    lower_frequency_down = forms.FloatField(
+        label="Нижняя частота",
+        help_text="Нижняя частота передатчика",
+        required=False,
+    )
+    baud_rate = forms.FloatField(
+        label="Скорость передачи",
+        help_text="Скорость передачи передатчика",
+    )
+    is_inverted = forms.BooleanField(
+        label="Инверсия",
+        help_text="Инверсия передатчика",
+        required=False,
+    )
+
+    class Meta:
+        model = Transmitter
+        fields = [
+            "satellite",
+            "description",
+            "status",
+            "type",
+            "modulation",
+            "upper_frequency_up",
+            "lower_frequency_up",
+            "upper_frequency_down",
+            "lower_frequency_down",
+            "baud_rate",
+            "is_inverted",
         ]

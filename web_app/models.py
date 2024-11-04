@@ -12,6 +12,11 @@ SATELLITE_STATUS = [
     ("Сгорел", "Сгорел"),
 ]
 
+TRANSMITTER_STATUS = [
+    ("Активен", "Активен"),
+    ("Неактивен", "Неактивен"),
+]
+
 
 # Create your models here.
 class Satellite(models.Model):
@@ -50,7 +55,7 @@ class Transmitter(models.Model):
     )
     description = models.CharField(max_length=200)
     type = models.CharField(max_length=200, choices=TRANSMITTER_TYPES)
-    status = models.CharField(max_length=200)
+    status = models.CharField(max_length=200, choices=TRANSMITTER_STATUS)
     modulation = models.CharField(max_length=200)
     upper_frequency_up = models.FloatField(null=True, blank=True)
     lower_frequency_up = models.FloatField(null=True, blank=True)
