@@ -41,5 +41,52 @@
         </tbody>
     </table>
 </div>
+<div class="container">
+    <div class="row">
+
+        {% for transmitter in satellite.transmitters.all %}
+        <div class="col-sm-2">
+            <div class="card"
+                style="width: 18rem;">
+                <div class="card-body">
+                    {% if transmitter.description %}
+                    <h5 class="card-title">{{ transmitter.id }}</h5>
+                    {% endif %}
+                    {% if transmitter.description %}
+                    <p class="card-text">Описание: {{ transmitter.description }}</p>
+                    {% endif %}
+                    {% if transmitter.type %}
+                    <p class="card-text">Тип: {{ transmitter.type }}</p>
+                    {% endif %}
+                    {% if transmitter.status %}
+                    <p class="card-text">Статус: {{ transmitter.status }}</p>
+                    {% endif %}
+                    {% if transmitter.modulation %}
+                    <p class="card-text">Модуляция: {{ transmitter.modulation }}</p>
+                    {% endif %}
+                    {% if transmitter.upper_frequency_up %}
+                    <p class="card-text">Верхняя частота наверх: {{ transmitter.upper_frequency_up }}</p>
+                    {% endif %}
+                    {% if transmitter.upper_frequency_down %}
+                    <p class="card-text">Верхняя частота вниз: {{ transmitter.upper_frequency_down }}</p>
+                    {% endif %}
+                    {% if transmitter.lower_frequency_down %}
+                    <p class="card-text">Нижняя частота вниз: {{ transmitter.lower_frequency_down }}</p>
+                    {% endif %}
+                    {% if transmitter.baud_rate %}
+                    <p class="card-text">Скорость передачи: {{ transmitter.baud_rate }}</p>
+                    {% endif %}
+                    {% if transmitter.is_inverted %}
+                    <p class="card-text">Инвертированность: {{ transmitter.is_inverted }}</p>
+                    {% endif %}
+                    <a href="{% url 'transmitter_view' pk=transmitter.id %}"
+                        class="btn btn-primary">Перейти</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
