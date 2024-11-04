@@ -6,9 +6,33 @@
     <title>Спутник {{ satellite.name }}</title>
 </head>
 
-<div class="container text-center">
-    <h1>Спутник {{ satellite.name }}</h1>
+<div class="row">
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-1
+        text-center">
+        <a href="{% url 'delete_satellite' pk=satellite.id %}"
+            class="btn btn-danger mb-3"
+            style="
+            margin-top:
+            5px;"
+            method="get">Удалить</a>
+    </div>
+    <div class="col-sm-6 text-center">
+        <h1>Спутник {{ satellite.name }}</h1>
+    </div>
+    <div class="col-sm-3">
+        <a href="{% url 'change_satellite' pk=satellite.id %}"
+            class="btn btn-warning mb-3"
+            style="
+            margin-top:
+            5px;"
+            method="get">Изменить</a>
+    </div>
 </div>
+
+
 <div class="container">
     {% if satellite.image %}
     <div class="container text-center">

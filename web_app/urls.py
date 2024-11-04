@@ -29,6 +29,16 @@ BASE_URLS = [
         r"^transmitters/(?P<pk>\d+)/$", views.transmitter_view, name="transmitter_view"
     ),
     path("add_satellite", views.add_satellite, name="add_satellite"),
+    re_path(
+        r"^change_satellite/(?P<pk>\d+)/$",
+        views.change_satellite,
+        name="change_satellite",
+    ),
+    re_path(
+        r"^delete_satellite/(?P<pk>\d+)/$",
+        views.delete_satellite,
+        name="delete_satellite",
+    ),
     path("add_transmitter", views.add_transmitter, name="add_transmitter"),
     path("add_tle", views.add_tle, name="add_tle"),
 ]
