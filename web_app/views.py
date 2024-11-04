@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
+from web_app.forms import SatelliteForm
 from web_app.models import Satellite
 
 # Create your views here.
@@ -36,3 +37,25 @@ def satellite_view(request, pk):
     """
     satellite = Satellite.objects.get(id=pk)
     return render(request, "satellite_view.html", {"satellite": satellite})
+
+
+def add_satellite(request):
+    """
+    Returns a rendered page with the form for adding a new satellite.
+
+    Args:
+        request (Request): The HTTP request.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    if request.method == "GET":
+        form = SatelliteForm()
+        return render(request, "add_satellite.html", {"form": form})
+    else:
+        form = SatelliteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "satellite_added.html")
+        else:
+            return render(request, "add_satellite.html", {"form": form})

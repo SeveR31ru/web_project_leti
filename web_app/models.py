@@ -16,8 +16,16 @@ SATELLITE_STATUS = [
 # Create your models here.
 class Satellite(models.Model):
     id = models.AutoField(primary_key=True)
-    identifier = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
+    identifier = models.CharField(
+        max_length=200,
+        unique=True,
+        error_messages={"unique": "Такой идентификатор уже существует"},
+    )
+    name = models.CharField(
+        max_length=200,
+        unique=True,
+        error_messages={"unique": "Такое название уже существует"},
+    )
     purpose = models.CharField(max_length=200)
     image_url = models.ImageField(upload_to="images/", null=True, blank=True)
     status = models.CharField(max_length=200, choices=SATELLITE_STATUS)

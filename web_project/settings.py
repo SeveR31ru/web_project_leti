@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "web_app",
     "bootstrap5",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+APPEND_SLASH = False
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -52,6 +58,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "web_project.urls"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 TEMPLATES = [
     {
