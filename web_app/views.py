@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 
 from web_app.forms import SatelliteForm, TransmitterForm
-from web_app.models import Satellite
+from web_app.models import Satellite, Transmitter
 
 # Create your views here.
 
@@ -21,7 +21,7 @@ class SatelliteListView(ListView):
     model = Satellite
     queryset = Satellite.objects.all()
     context_object_name = "satellites"
-    template_name = "satellite_list.html"
+    template_name = "satellites/satellite_list.html"
 
 
 def satellite_view(request, pk):
@@ -36,7 +36,31 @@ def satellite_view(request, pk):
         HttpResponse: The rendered page.
     """
     satellite = Satellite.objects.get(id=pk)
-    return render(request, "satellite_view.html", {"satellite": satellite})
+    return render(request, "satellites/satellite_view.html", {"satellite": satellite})
+
+
+class TransmitterListView(ListView):
+    model = Transmitter
+    queryset = Transmitter.objects.all()
+    context_object_name = "transmitters"
+    template_name = "transmitters/transmitter_list.html"
+
+
+def transmitter_view(request, pk):
+    """
+    Returns a rendered page with information about a single transmitter.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the transmitter.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    transmitter = Transmitter.objects.get(id=pk)
+    return render(
+        request, "transmitters/transmitter_view.html", {"transmitter": transmitter}
+    )
 
 
 def add_satellite(request):
@@ -51,14 +75,14 @@ def add_satellite(request):
     """
     if request.method == "GET":
         form = SatelliteForm()
-        return render(request, "add_satellite.html", {"form": form})
+        return render(request, "satellites/add_satellite.html", {"form": form})
     else:
         form = SatelliteForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "satellite_added.html")
+            return render(request, "satellites/satellite_added.html")
         else:
-            return render(request, "add_satellite.html", {"form": form})
+            return render(request, "satellites/add_satellite.html", {"form": form})
 
 
 def add_transmitter(request):
@@ -73,11 +97,11 @@ def add_transmitter(request):
     """
     if request.method == "GET":
         form = TransmitterForm()
-        return render(request, "add_transmitter.html", {"form": form})
+        return render(request, "transmitters/add_transmitter.html", {"form": form})
     else:
         form = TransmitterForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "transmitter_added.html")
+            return render(request, "transmitters/transmitter_added.html")
         else:
-            return render(request, "add_transmitter.html", {"form": form})
+            return render(request, "transmitters/add_transmitter.html", {"form": form})

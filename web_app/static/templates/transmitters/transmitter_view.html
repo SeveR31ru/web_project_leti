@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <title>Передатчик спутника {{ transmitter.satellite.name }}</title>
+</head>
+
+<div class="container text-center">
+    <h1>{{ transmitter.description }}</h1>
+</div>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th score="col">Параметр</th>
+                <th score="col">Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th score="row">Идентификатор</th>
+                <td>{{ transmitter.identifier|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Описание</th>
+                <td>{{ transmitter.description|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Имя спутника данного передатчика</th>
+                <td>{{ transmitter.satellite.name|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Тип</th>
+                <td>{{ transmitter.type|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Статус</th>
+                <td>{{ transmitter.status|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Модуляция</th>
+                <td>{{ transmitter.modulation|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Верхняя частота наверх</th>
+                <td>{{ transmitter.upper_frequency_up|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Нижняя частота наверх</th>
+                <td>{{ transmitter.lower_frequency_up|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Верхняя частота вниз</th>
+                <td>{{ transmitter.upper_frequency_down|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Нижняя частота вниз</th>
+                <td>{{ transmitter.lower_frequency_down|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Скорость передачи</th>
+                <td>{{ transmitter.baud_rate|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Инвертированность</th>
+                <td>{{ transmitter.is_inverted|default:'-' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
