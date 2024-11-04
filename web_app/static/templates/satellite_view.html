@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <title>Спутник {{ satellite.name }}</title>
+</head>
+
+<div class="container text-center">
+    <h1>Спутник {{ satellite.name }}</h1>
+</div>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th score="col">Параметр</th>
+                <th score="col">Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th score="row">Идентификатор</th>
+                <td>{{ satellite.identifier|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Название</th>
+                <td>{{ satellite.name|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Назначение</th>
+                <td>{{ satellite.purpose|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Статус</th>
+                <td>{{ satellite.status|default:'-' }}</td>
+            </tr>
+            <tr>
+                <th score="row">Страна</th>
+                <td>{{ satellite.country|default:'-' }}</td>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
