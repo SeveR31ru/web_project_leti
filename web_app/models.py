@@ -80,7 +80,7 @@ class Tle(models.Model):
     tle_0 = models.CharField(max_length=200)
     tle_1 = models.CharField(max_length=200)
     tle_2 = models.CharField(max_length=200)
-    update_date = models.DateField()
+    update_date = models.DateField(auto_now=True)
 
     def __str__(self):
         """

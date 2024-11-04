@@ -77,8 +77,9 @@ def add_satellite(request):
         form = SatelliteForm()
         return render(request, "satellites/add_satellite.html", {"form": form})
     else:
-        form = SatelliteForm(request.POST)
+        form = SatelliteForm(request.POST, request.FILES)
         if form.is_valid():
+            form.instance.image = request.FILES["image"]
             form.save()
             return render(request, "satellites/satellite_added.html")
         else:

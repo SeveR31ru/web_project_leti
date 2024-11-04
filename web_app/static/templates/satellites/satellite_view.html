@@ -10,7 +10,7 @@
     <h1>Спутник {{ satellite.name }}</h1>
 </div>
 <div class="container">
-    {% if satellite.image_url %}
+    {% if satellite.image %}
     <div class="container text-center">
         <img src="{{ satellite.image.url }}"
             alt="Фото спутника"

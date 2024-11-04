@@ -22,9 +22,9 @@ class SatelliteForm(forms.ModelForm):
         label="Назначение",
         help_text="Назначение спутника",
     )
-    image_url = forms.URLField(
-        label="Ссылка на изображение",
-        help_text="Ссылка на изображение спутника",
+    image = forms.ImageField(
+        label="Изображение",
+        help_text="Изображение спутника",
         required=False,
     )
     status = forms.ChoiceField(
@@ -54,7 +54,7 @@ class SatelliteForm(forms.ModelForm):
             "identifier",
             "name",
             "purpose",
-            "image_url",
+            "image",
             "status",
             "is_frequency_violator",
             "country",
