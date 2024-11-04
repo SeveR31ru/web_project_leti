@@ -6,6 +6,8 @@ from web_app.models import Satellite, Transmitter
 
 # Create your views here.
 
+# Satellite views
+
 
 def index(request):
     """
@@ -39,6 +41,9 @@ def satellite_view(request, pk):
     return render(request, "satellites/satellite_view.html", {"satellite": satellite})
 
 
+# Transmitter views
+
+
 class TransmitterListView(ListView):
     model = Transmitter
     queryset = Transmitter.objects.all()
@@ -61,6 +66,9 @@ def transmitter_view(request, pk):
     return render(
         request, "transmitters/transmitter_view.html", {"transmitter": transmitter}
     )
+
+
+# Satellite methods
 
 
 def add_satellite(request):
@@ -135,6 +143,9 @@ def delete_satellite(request, pk):
         return redirect("satellite_list")
 
 
+# transmitter methods
+
+
 def add_transmitter(request):
     """
     Returns a rendered page with the form for adding a new transmitter.
@@ -155,6 +166,60 @@ def add_transmitter(request):
             return render(request, "transmitters/transmitter_added.html")
         else:
             return render(request, "transmitters/add_transmitter.html", {"form": form})
+
+
+def change_transmitter(request, pk):
+    """
+    Returns a rendered page with the form for changing a transmitter.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the transmitter.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    transmitter = Transmitter.objects.get(id=pk)
+
+    if request.method == "GET":
+        form = TransmitterForm(instance=transmitter)
+        return render(request, "transmitters/change_transmitter.html", {"form": form})
+    else:
+        form = TransmitterForm(request.POST, instance=transmitter)
+        if form.is_valid():
+            form.save()
+            return render(request, "transmitters/transmitter_changed.html")
+        else:
+            return render(
+                request, "transmitters/change_transmitter.html", {"form": form}
+            )
+
+
+def delete_transmitter(request, pk):
+    """
+    Returns a rendered page with the form for deleting a transmitter.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the transmitter.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    transmitter = Transmitter.objects.get(id=pk)
+
+    if request.method == "GET":
+        return render(
+            request,
+            "transmitters/delete_transmitter.html",
+            {"transmitter": transmitter},
+        )
+    else:
+        transmitter.delete()
+        return redirect("transmitter_list")
+
+
+# tle methods
 
 
 def add_tle(request):

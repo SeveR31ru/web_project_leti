@@ -28,6 +28,7 @@ BASE_URLS = [
     re_path(
         r"^transmitters/(?P<pk>\d+)/$", views.transmitter_view, name="transmitter_view"
     ),
+    # sat methods
     path("add_satellite", views.add_satellite, name="add_satellite"),
     re_path(
         r"^change_satellite/(?P<pk>\d+)/$",
@@ -39,6 +40,18 @@ BASE_URLS = [
         views.delete_satellite,
         name="delete_satellite",
     ),
+    # transmitter methods
     path("add_transmitter", views.add_transmitter, name="add_transmitter"),
+    re_path(
+        r"^change_transmitter/(?P<pk>\d+)/$",
+        views.change_transmitter,
+        name="change_transmitter",
+    ),
+    re_path(
+        r"^delete_transmitter/(?P<pk>\d+)/$",
+        views.delete_transmitter,
+        name="delete_transmitter",
+    ),
+    # tle methods
     path("add_tle", views.add_tle, name="add_tle"),
 ]
