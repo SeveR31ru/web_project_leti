@@ -32,7 +32,7 @@ class Satellite(models.Model):
         error_messages={"unique": "Такое название уже существует"},
     )
     purpose = models.CharField(max_length=200)
-    image_url = models.ImageField(upload_to="images/", null=True, blank=True)
+    image = models.ImageField(upload_to="images/", null=True, blank=True)
     status = models.CharField(max_length=200, choices=SATELLITE_STATUS)
     is_frequency_violator = models.BooleanField()
     country = models.CharField(max_length=200, null=True, blank=True)
