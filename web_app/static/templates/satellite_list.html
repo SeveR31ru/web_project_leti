@@ -11,27 +11,21 @@
 </div>
 <div class="container">
     <table class="table table-bordered">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th score="col">ID</th>
                 <th score="col">Идентификатор</th>
                 <th score="col">Название</th>
-                <th score="col">Назначение</th>
-                <th score="col">Статус</th>
-                <th score="col">Страна</th>
-                <th score="col">Дата запуска</th>
+                <th score="col">Количество передатчиков</th>
             </tr>
         </thead>
         <tbody>
             {% for satellite in satellites %}
             <tr>
-                <th score="row">{{ satellite.id }}</th>
-                <td>{{ satellite.identifier }}</td>
-                <td>{{ satellite.name }}</td>
-                <td>{{ satellite.purpose }}</td>
-                <td>{{ satellite.status }}</td>
-                <td>{{ satellite.country }}</td>
-                <td>{{ satellite.launch_date }}</td>
+                <th score="row"><a href="{% url 'satellite_view' pk=satellite.id %}">{{ satellite.id }}</a></th>
+                <td>{{ satellite.identifier|default:'-' }}</td>
+                <td>{{ satellite.name|default:'-' }}</td>
+                <td>{{ satellite.transmitters.count|default:'-' }}</td>
             </tr>
             {% endfor %}
         </tbody>

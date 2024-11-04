@@ -37,7 +37,9 @@ class Satellite(models.Model):
 
 class Transmitter(models.Model):
     id = models.AutoField(primary_key=True)
-    satellite = models.ForeignKey(Satellite, on_delete=models.CASCADE)
+    satellite = models.ForeignKey(
+        Satellite, on_delete=models.CASCADE, related_name="transmitters"
+    )
     description = models.CharField(max_length=200)
     type = models.CharField(max_length=200, choices=TRANSMITTER_TYPES)
     status = models.CharField(max_length=200)
