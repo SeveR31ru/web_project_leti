@@ -1,12 +1,12 @@
 """
 URL configuration for web_project project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to  For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  path('', home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
@@ -17,41 +17,54 @@ Including another URLconf
 
 from django.urls import path, re_path
 
-from web_app import views
+from web_app.views.generic import index
+from web_app.views.satellite_views import (
+    SatelliteListView,
+    add_satellite,
+    change_satellite,
+    delete_satellite,
+    satellite_view,
+)
+from web_app.views.tle_views import add_tle
+from web_app.views.transmitter_views import (
+    TransmitterListView,
+    add_transmitter,
+    change_transmitter,
+    delete_transmitter,
+    transmitter_view,
+)
 
 BASE_URLS = [
-    path("", views.index, name="index"),
-    path("satellites", views.SatelliteListView.as_view(), name="satellite_list"),
-    re_path(r"^satellites/(?P<pk>\d+)/$", views.satellite_view, name="satellite_view"),
+    path("", index, name="index"),
+    path("satellites", SatelliteListView.as_view(), name="satellite_list"),
+    re_path(r"^satellites/(?P<pk>\d+)/$", satellite_view, name="satellite_view"),
     # add urls
-    path("transmitters", views.TransmitterListView.as_view(), name="transmitter_list"),
-    re_path(
-        r"^transmitters/(?P<pk>\d+)/$", views.transmitter_view, name="transmitter_view"
-    ),
+    path("transmitters", TransmitterListView.as_view(), name="transmitter_list"),
+    re_path(r"^transmitters/(?P<pk>\d+)/$", transmitter_view, name="transmitter_view"),
     # sat methods
-    path("add_satellite", views.add_satellite, name="add_satellite"),
+    path("add_satellite", add_satellite, name="add_satellite"),
     re_path(
         r"^change_satellite/(?P<pk>\d+)/$",
-        views.change_satellite,
+        change_satellite,
         name="change_satellite",
     ),
     re_path(
         r"^delete_satellite/(?P<pk>\d+)/$",
-        views.delete_satellite,
+        delete_satellite,
         name="delete_satellite",
     ),
     # transmitter methods
-    path("add_transmitter", views.add_transmitter, name="add_transmitter"),
+    path("add_transmitter", add_transmitter, name="add_transmitter"),
     re_path(
         r"^change_transmitter/(?P<pk>\d+)/$",
-        views.change_transmitter,
+        change_transmitter,
         name="change_transmitter",
     ),
     re_path(
         r"^delete_transmitter/(?P<pk>\d+)/$",
-        views.delete_transmitter,
+        delete_transmitter,
         name="delete_transmitter",
     ),
     # tle methods
-    path("add_tle", views.add_tle, name="add_tle"),
+    path("add_tle", add_tle, name="add_tle"),
 ]
