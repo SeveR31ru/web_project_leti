@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <head>
@@ -102,6 +102,34 @@
     {% endif %}
 </div>
 
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th id="sat-coord"
+                    score="col"
+                    data-sat-id="{{ satellite.id }}">Параметры кординат</th>
+                <th>Значение координат</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Высота</td>
+                <td id="alt">-</td>
+            </tr>
+            <tr>
+                <td>Широта</td>
+                <td id="lat">-</td>
+            </tr>
+            <tr>
+                <td>Долгота</td>
+                <td id="lng">-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <div class="container text-center">
     <h2>Передатчики</h2>
 </div>
@@ -144,12 +172,12 @@
                     {% endif %}
                     <a href="{% url 'transmitter_view' pk=transmitter.id %}"
                         class="btn btn-primary">Перейти</a>
-
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/get_coordinates.js' %}"></script>
 {% endblock %}

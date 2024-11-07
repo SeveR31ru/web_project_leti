@@ -25,7 +25,7 @@ from web_app.views.satellite_views import (
     delete_satellite,
     satellite_view,
 )
-from web_app.views.tle_views import add_tle
+from web_app.views.tle_views import add_tle, calculate_sat_position
 from web_app.views.transmitter_views import (
     TransmitterListView,
     add_transmitter,
@@ -67,4 +67,5 @@ BASE_URLS = [
     ),
     # tle methods
     path("add_tle", add_tle, name="add_tle"),
+    path("get_coordinates/", calculate_sat_position, name="get_coordinates"),
 ]
