@@ -1,8 +1,4 @@
-from django.shortcuts import redirect, render
-from django.views.generic.list import ListView
-
-from web_app.forms import SatelliteForm, TleForm, TransmitterForm
-from web_app.models import Satellite, Transmitter
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -17,5 +13,3 @@ def index(request):
         request (Request): The HTTP request.
     """
     return render(request, "index.html")
-
-
