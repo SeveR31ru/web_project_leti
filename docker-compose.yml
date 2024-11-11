@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: 'postgres:15.3'
+    environment:
+      POSTGRES_DB: 'postgres'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_ROOT_PASSWORD: 'postgres'
+    restart: 'on-failure'
+    volumes:
+      - db:/var/lib/postgresql/data/
+
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+volumes:
+  db:
+  redis:
+  backend_static:
+  backend_media:
