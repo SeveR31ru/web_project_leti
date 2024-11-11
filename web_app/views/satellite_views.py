@@ -26,7 +26,9 @@ def satellite_view(request, pk):
     satellite = Satellite.objects.get(id=pk)
     return render(request, "satellites/satellite_view.html", {"satellite": satellite})
 
+
 # CUD satellite
+
 
 def add_satellite(request):
     """
@@ -44,7 +46,8 @@ def add_satellite(request):
     else:
         form = SatelliteForm(request.POST, request.FILES)
         if form.is_valid():
-            form.instance.image = request.FILES["image"]
+            if "image" in request.FILES:
+                form.instance.image = request.FILES["image"]
             form.save()
             return render(request, "satellites/satellite_added.html")
         else:
@@ -98,5 +101,3 @@ def delete_satellite(request, pk):
     else:
         satellite.delete()
         return redirect("satellite_list")
-
-

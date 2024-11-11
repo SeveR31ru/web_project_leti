@@ -130,7 +130,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join("/home/sever31/Documents/web_project/web_dir/web_app", "static"),
+    os.path.join(BASE_DIR, "web_app", "static"),
 ]
 
 MEDIA_URL = "/media/"
