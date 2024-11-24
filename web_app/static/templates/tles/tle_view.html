@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+  <title>Просмотр TLE</title>
+</head>
+
+<div class="row">
+  <div class="col-sm-2">
+
+  </div>
+  <div class="col-sm-1 text-center">
+    <a href="{% url 'delete_tle' pk=tle.id %}"
+      class="btn btn-danger mb-3"
+      style="margin-top: 5px;"
+      method="get">Удалить</a>
+  </div>
+  <div class="col-sm-6 text-center">
+    <h1>Информация о TLE</h1>
+  </div>
+  <div class="col-sm-3">
+    <a href="{% url 'change_tle' pk=tle.id %}"
+      class="btn btn-warning mb-3"
+      style="margin-top: 5px;"
+      method="get">Изменить</a>
+  </div>
+
+</div>
+
+<div class="container">
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Параметр</th>
+        <th scope="col">Значение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ID</td>
+        <td>{{ tle.id }}</td>
+      </tr>
+      <tr>
+        <td>Спутник</td>
+        <td>{{ tle.satellite.name|default:'-' }}</td>
+      </tr>
+      <tr>
+        <td>TLE_0</td>
+        <td>{{ tle.tle_0|default:'-' }}</td>
+      </tr>
+      <tr>
+        <td>TLE_1</td>
+        <td>{{ tle.tle_1|default:'-' }}</td>
+      </tr>
+      <tr>
+        <td>TLE_2</td>
+        <td>{{ tle.tle_2|default:'-' }}</td>
+      </tr>
+      <tr>
+        <td>Дата добавления</td>
+        <td>{{ tle.update_date|default:'-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

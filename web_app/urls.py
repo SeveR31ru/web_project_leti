@@ -25,7 +25,14 @@ from web_app.views.satellite_views import (
     delete_satellite,
     satellite_view,
 )
-from web_app.views.tle_views import add_tle, calculate_sat_position
+from web_app.views.tle_views import (
+    TleListView,
+    add_tle,
+    calculate_sat_position,
+    change_tle,
+    delete_tle,
+    tle_view,
+)
 from web_app.views.transmitter_views import (
     TransmitterListView,
     add_transmitter,
@@ -36,8 +43,10 @@ from web_app.views.transmitter_views import (
 
 BASE_URLS = [
     path("", index, name="index"),
+    path("tles", TleListView.as_view(), name="tle_list"),
     path("satellites", SatelliteListView.as_view(), name="satellite_list"),
     re_path(r"^satellites/(?P<pk>\d+)/$", satellite_view, name="satellite_view"),
+    re_path(r"^tles/(?P<pk>\d+)/$", tle_view, name="tle_view"),
     # add urls
     path("transmitters", TransmitterListView.as_view(), name="transmitter_list"),
     re_path(r"^transmitters/(?P<pk>\d+)/$", transmitter_view, name="transmitter_view"),
@@ -68,4 +77,6 @@ BASE_URLS = [
     # tle methods
     path("add_tle", add_tle, name="add_tle"),
     path("get_coordinates/", calculate_sat_position, name="get_coordinates"),
+    re_path(r"^change_tle/(?P<pk>\d+)/$", change_tle, name="change_tle"),
+    re_path(r"^delete_tle/(?P<pk>\d+)/$", delete_tle, name="delete_tle"),
 ]

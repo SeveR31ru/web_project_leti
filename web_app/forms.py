@@ -86,23 +86,23 @@ class TransmitterForm(forms.ModelForm):
         help_text="Модуляция передатчика",
     )
     upper_frequency_up = forms.FloatField(
-        label="Верхняя частота",
-        help_text="Верхняя частота передатчика",
+        label="Верхняя частота наверх",
+        help_text="Верхняя частота наверх передатчика",
         required=False,
     )
     lower_frequency_up = forms.FloatField(
-        label="Нижняя частота",
-        help_text="Нижняя частота передатчика",
+        label="Нижняя частота наверх",
+        help_text="Нижняя частота наверх передатчика",
         required=False,
     )
     upper_frequency_down = forms.FloatField(
-        label="Верхняя частота",
-        help_text="Верхняя частота передатчика",
+        label="Верхняя частота вниз",
+        help_text="Верхняя частота вниз передатчика",
         required=False,
     )
     lower_frequency_down = forms.FloatField(
-        label="Нижняя частота",
-        help_text="Нижняя частота передатчика",
+        label="Нижняя частота вниз",
+        help_text="Нижняя частота вниз передатчика",
         required=False,
     )
     baud_rate = forms.FloatField(

@@ -15,8 +15,7 @@
         <thead class="table-dark">
             <tr>
                 <th score="col">ID</th>
-                <th score="col">Идентификатор</th>
-                <th score="col">Название</th>
+                <th score="col">Описание передатчика</th>
                 <th score="col">Имя спутника данного передатчика</th>
             </tr>
         </thead>
@@ -24,8 +23,7 @@
             {% for transmitter in transmitters %}
             <tr>
                 <th score="row"><a href="{% url 'transmitter_view' pk=transmitter.id %}">{{ transmitter.id }}</a></th>
-                <td>{{ transmitter.identifier|default:'-' }}</td>
-                <td>{{ transmitter.name|default:'-' }}</td>
+                <td>{{ transmitter.description|default:'-' }}</td>
                 <td><a href="{% url 'satellite_view' pk=transmitter.satellite.id %}">{{ transmitter.satellite.name}}
                 </td>
             </tr>

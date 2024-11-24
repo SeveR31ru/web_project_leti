@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+  <title>Список TLE</title>
+</head>
+
+<div class="container text-center">
+  <h1>Список TLE</h1>
+</div>
+<div class="container">
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th score="col">ID</th>
+        <th score="col">Спутник</th>
+        <th score="col">TLE_0</th>
+        <th score="col">TLE_1</th>
+        <th score="col">TLE_2</th>
+        <th score="col">Дата добавления</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tle in tles %}
+      <tr>
+        <th score="row"><a href="{% url 'tle_view' pk=tle.id %}">{{ tle.id }}</a></th>
+        <td>{{ tle.satellite.name|default:'-' }}</td>
+        <td>{{ tle.tle_0|default:'-' }}</td>
+        <td>{{ tle.tle_1|default:'-' }}</td>
+        <td>{{ tle.tle_2|default:'-' }}</td>
+        <td>{{ tle.update_date|default:'-' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

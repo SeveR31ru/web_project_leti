@@ -1,10 +1,24 @@
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
-from skyfield.api import EarthSatellite, load
+from django.views.generic.list import ListView
 
 from web_app.forms import TleForm
 from web_app.models import Tle
+
+
+class TleListView(ListView):
+    """
+    Returns a rendered page with the list of all TLEs.
+
+    Attributes:
+        model: The model of the list view. In this case, it is Tle.
+        template_name: The template name of the list view. In this case, it is "tles/tle_list.html".
+    """
+
+    model = Tle
+    template_name = "tles/tle_list.html"
+    queryset = Tle.objects.all()
+    context_object_name = "tles"
 
 
 def add_tle(request):
@@ -29,6 +43,64 @@ def add_tle(request):
             return render(request, "tles/add_tle.html", {"form": form})
 
 
+def tle_view(request, pk):
+    """
+    Returns a rendered page with the TLE with the given primary key.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the TLE.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    tle = Tle.objects.get(id=pk)
+    return render(request, "tles/tle_view.html", {"tle": tle})
+
+
+def change_tle(request, pk):
+    """
+    Returns a rendered page with the form for changing a TLE with the given primary key.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the TLE.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    tle = Tle.objects.get(id=pk)
+    if request.method == "GET":
+        form = TleForm(instance=tle)
+        return render(request, "tles/change_tle.html", {"form": form})
+    else:
+        form = TleForm(request.POST, instance=tle)
+        if form.is_valid():
+            form.save()
+            return render(request, "tles/tle_changed.html")
+        else:
+            return render(request, "tles/change_tle.html", {"form": form})
+
+
+def delete_tle(request, pk):
+    """
+    Returns a rendered page with the form for deleting a TLE with the given primary key.
+
+    Args:
+        request (Request): The HTTP request.
+        pk (int): The primary key of the TLE.
+
+    Returns:
+        HttpResponse: The rendered page.
+    """
+    tle = Tle.objects.get(id=pk)
+    if request.method == "GET":
+        return render(request, "tles/delete_tle.html", {"tle": tle})
+    else:
+        tle.delete()
+        return redirect("tle_list")
+
+
 @csrf_exempt
 def calculate_sat_position(request):
     """
@@ -50,8 +122,11 @@ def calculate_sat_position(request):
         tle = Tle.objects.filter(satellite__id=sat_id).first()
     else:
         return JsonResponse({}, status=404)
-    ts = load.timescale()
-    satellite = EarthSatellite(tle.tle_1, tle.tle_2, tle.tle_0, ts)
+    try:
+        ts = load.timescale()
+        satellite = EarthSatellite(tle.tle_1, tle.tle_2, tle.tle_0, ts)
+    except ValueError:
+        return JsonResponse({"error": "TLE is not valid"}, status=400)
     geocentric = satellite.at(ts.now())
     subpoint = geocentric.subpoint()
     coord_dict = {
