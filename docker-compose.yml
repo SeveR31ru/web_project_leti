@@ -12,6 +12,8 @@ services:
     restart: 'on-failure'
     volumes:
       - db:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
 
   web:
     build: .
