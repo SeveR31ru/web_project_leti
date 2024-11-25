@@ -1,6 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list import ListView
+from skyfield.api import EarthSatellite, load
 
 from web_app.forms import TleForm
 from web_app.models import Tle
@@ -117,6 +120,7 @@ def calculate_sat_position(request):
     Returns:
         JsonResponse: A JSON response with the current coordinates of the satellite.
     """
+
     sat_id = request.POST.get("sat_id")
     if Tle.objects.filter(satellite__id=sat_id).exists():
         tle = Tle.objects.filter(satellite__id=sat_id).first()
@@ -126,7 +130,7 @@ def calculate_sat_position(request):
         ts = load.timescale()
         satellite = EarthSatellite(tle.tle_1, tle.tle_2, tle.tle_0, ts)
     except ValueError:
-        return JsonResponse({"error": "TLE is not valid"}, status=400)
+        return JsonResponse({"error": _("TLE is not valid")}, status=400)
     geocentric = satellite.at(ts.now())
     subpoint = geocentric.subpoint()
     coord_dict = {
