@@ -43,7 +43,7 @@
       </tr>
       <tr>
         <td>Спутник</td>
-        <td>{{ tle.satellite.name|default:'-' }}</td>
+        <td><a href="{% url 'satellite_view' pk=tle.satellite.id %}">{{ tle.satellite.name|default:'-' }}</a></td>
       </tr>
       <tr>
         <td>TLE_0</td>

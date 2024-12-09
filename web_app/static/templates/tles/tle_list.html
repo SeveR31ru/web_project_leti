@@ -25,7 +25,7 @@
       {% for tle in tles %}
       <tr>
         <th score="row"><a href="{% url 'tle_view' pk=tle.id %}">{{ tle.id }}</a></th>
-        <td>{{ tle.satellite.name|default:'-' }}</td>
+        <td><a href="{% url 'satellite_view' pk=tle.satellite.id %}">{{ tle.satellite.name|default:'-' }}</a></td>
         <td>{{ tle.tle_0|default:'-' }}</td>
         <td>{{ tle.tle_1|default:'-' }}</td>
         <td>{{ tle.tle_2|default:'-' }}</td>

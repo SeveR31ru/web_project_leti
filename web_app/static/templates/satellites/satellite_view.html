@@ -88,7 +88,7 @@
 </div>
 
 <div class="container text-center">
-    <h2>Последнее TLE</h2>
+    <h2><a href="{% url 'tle_view' pk=satellite.tles.all.first.id %}">Последнее TLE</a></h2>
     {% if satellite.tles.all %}
     {% with satellite.tles.all.first as tle %}
     <table class="table table-bordered">
